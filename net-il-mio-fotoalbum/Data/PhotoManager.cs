@@ -15,7 +15,7 @@ namespace net_il_mio_fotoalbum.Data
             using PhotoContext db = new PhotoContext();
             return db.Categories.ToList();
         }
-        public static void IsertPhoto(Photo photo, List<string> SelectedCategories = null)
+        public static void InsertPhoto(Photo photo, List<string> SelectedCategories = null)
         {
             using PhotoContext db = new PhotoContext();
             if(SelectedCategories != null)
@@ -43,6 +43,13 @@ namespace net_il_mio_fotoalbum.Data
                     .FirstOrDefault();
             }
             return db.Photos.FirstOrDefault(p => p.PhotoId == id);
+        }
+
+        public static void InsertCategory(Category category)
+        {
+            using PhotoContext db = new PhotoContext();
+            db.Categories.Add(category);
+            db.SaveChanges();
         }
     }
 }
