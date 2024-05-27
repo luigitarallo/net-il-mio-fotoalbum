@@ -16,6 +16,7 @@
                         <th scope="col" class="text-center bg-danger">Description</th>
                         <th scope="col" class="text-center bg-danger">Photo</th>
                         <th scope="col" class="text-center bg-danger">Availability</th>
+                        <th scope="col" class="text-center bg-danger">Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,10 +25,16 @@
                         {
                             <tr>
                                 <td class="text-center align-content-center">@photo.Title</td>
-
-                            <td class="text-center align-content-center">@photo.Description</td>
-                            <td class="text-center align-content-center">@photo.IsVisible</td>
-                               
+                                <td class="text-center align-content-center">@photo.Description</td>
+                                <td class="text-center align-content-center">
+                                    <img class="img-fluid" src="@photo.PhotoSrc" alt="" />
+                                </td>
+                                <td class="text-center align-content-center">@photo.IsVisible</td>
+                                <td class="text-center align-content-center">
+                                <button type="button" class="btn btn-danger">
+                                    <a href="@Url.Action("Details", "Photo", new { id = photo.PhotoId })">Details</a>
+                                </button>
+                                </td>
                             </tr>
                         }
                 </tbody>
