@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace net_il_mio_fotoalbum
 {
     public class Program
@@ -8,7 +10,7 @@ namespace net_il_mio_fotoalbum
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,12 +25,13 @@ namespace net_il_mio_fotoalbum
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Photo}/{action=Index}/{id?}");
 
             app.Run();
         }

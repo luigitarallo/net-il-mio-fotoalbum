@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using net_il_mio_fotoalbum.Data;
+using net_il_mio_fotoalbum.Models;
 
 namespace net_il_mio_fotoalbum.Controllers
 {
@@ -6,17 +8,28 @@ namespace net_il_mio_fotoalbum.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(PhotoManager.GetAllPhotos());
         }
-
-        //public IActionResult Create(int id)
-        //{
-
-        //}
-
+        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            PhotoFormModel model = new PhotoFormModel();
+            model.Photo = new Photo();
+            model.CreateCategories();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(PhotoFormModel data)
+        {
+            if(!ModelState.IsValid)
+            {
+                data.CreateCategories();
+                return View("Create", data);
+            }
+            PhotoManager.IsertPhoto(data.Photo, data.SelectedCategories);
+            return RedirectToAction("Index");
         }
     }
 }
