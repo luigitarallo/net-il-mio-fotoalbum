@@ -1,0 +1,20 @@
+﻿@model Category
+
+@using net_il_mio_fotoalbum.Data
+
+<div class="container">
+    <form asp-controller="Category" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Name:</strong>
+            <input asp-for="Name" class="d-block w-100" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Insert Category">
+        </div>
+    </form>
+</div>
+
+
+
