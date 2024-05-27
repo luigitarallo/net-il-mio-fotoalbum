@@ -28,6 +28,7 @@ namespace net_il_mio_fotoalbum.Controllers
                 data.CreateCategories();
                 return View("Create", data);
             }
+            data.SetImageFileFromFormFile();
             PhotoManager.IsertPhoto(data.Photo, data.SelectedCategories);
             return RedirectToAction("Index");
         }

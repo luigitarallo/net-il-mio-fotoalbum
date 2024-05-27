@@ -16,7 +16,6 @@
                         <th scope="col" class="text-center bg-danger">Description</th>
                         <th scope="col" class="text-center bg-danger">Photo</th>
                         <th scope="col" class="text-center bg-danger">Availability</th>
-                        <th scope="col" class="text-center bg-danger">Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +30,13 @@
                                
                             </tr>
                         }
-                    }
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger mb-5">
+                <a href="@Url.Action("Create","Photo")">Add New Photo</a>
+            </button>
         </div>
     </div>
 </div>

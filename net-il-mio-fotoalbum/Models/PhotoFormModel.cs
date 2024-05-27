@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Hosting;
 using net_il_mio_fotoalbum.Data;
 
 namespace net_il_mio_fotoalbum.Models
@@ -8,7 +9,7 @@ namespace net_il_mio_fotoalbum.Models
         public Photo Photo { get; set; }
         public List<SelectListItem>? Categories { get; set; } // To show categories to select
         public List<string> SelectedCategories { get; set; }
-
+        public IFormFile? ImageFormFile { get; set; }
         public PhotoFormModel() { }
 
         public PhotoFormModel(Photo photo) 
@@ -34,6 +35,18 @@ namespace net_il_mio_fotoalbum.Models
                     Selected = isSelected
                 });
             }
+        }
+
+        public byte[] SetImageFileFromFormFile()
+        {
+            if (ImageFormFile == null)
+                return null;
+
+            using var stream = new MemoryStream();
+            this.ImageFormFile?.CopyTo(stream);
+            Photo.PhotoFile = stream.ToArray();
+
+            return Photo.PhotoFile;
         }
     }
 }

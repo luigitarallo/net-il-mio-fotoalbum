@@ -1,0 +1,39 @@
+﻿@using net_il_mio_fotoalbum.Data
+@model PhotoFormModel
+
+<div class="container">
+    <form asp-controller="Photo" asp-action="Create" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Title:</strong>
+            <input asp-for="Photo.Title" class="d-block w-100" />
+            <span asp-validation-for="Photo.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Description:</strong>
+            <input asp-for="Photo.Description" class="d-block w-100 is-invalid" />
+            <span asp-validation-for="Photo.Description" class="text-danger is-invalid"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Categories:</strong>
+            @for (int i = 0; i < Model.Categories.Count; i++)
+            {
+                <div>
+                    <input type="checkbox" name="SelectedCategories" value="@Model.Categories[i].Value"
+        @(Model.SelectedCategories.Contains(Model.Categories[i].Value) ? "checked" : "") />
+                    @Model.Categories[i].Text
+                </div>
+            }
+        </div>
+        <div class="form-field">
+            
+            <label asp-for="ImageFormFile">Image file</label>
+            <input type="file" asp-for="ImageFormFile" />
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Insert Photo">
+        </div>
+    </form>
+</div>
+
+
