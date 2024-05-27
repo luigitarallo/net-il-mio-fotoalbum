@@ -8,5 +8,15 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             return View();
         }
+
+        //public IActionResult Create(int id)
+        //{
+
+        //}
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
