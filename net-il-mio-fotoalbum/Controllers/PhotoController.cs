@@ -10,6 +10,16 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             return View(PhotoManager.GetAllPhotos());
         }
+
+        public IActionResult Details(int id)
+        {
+            Photo photo = PhotoManager.GetPhotoById(id);
+            if(photo!= null)
+                return View(photo);
+            else
+                return View("Error");
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -32,5 +42,7 @@ namespace net_il_mio_fotoalbum.Controllers
             PhotoManager.IsertPhoto(data.Photo, data.SelectedCategories);
             return RedirectToAction("Index");
         }
+
+
     }
 }
