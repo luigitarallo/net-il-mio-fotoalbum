@@ -37,6 +37,7 @@ namespace net_il_mio_fotoalbum.Models
             }
         }
 
+        // function to convert Img to bytes array
         public byte[] SetImageFileFromFormFile()
         {
             if (ImageFormFile == null)
