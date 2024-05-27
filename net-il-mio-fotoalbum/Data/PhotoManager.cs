@@ -1,4 +1,5 @@
-﻿using net_il_mio_fotoalbum.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using net_il_mio_fotoalbum.Models;
 
 namespace net_il_mio_fotoalbum.Data
 {
@@ -29,6 +30,19 @@ namespace net_il_mio_fotoalbum.Data
             }
             db.Photos.Add(photo);
             db.SaveChanges();
+        }
+
+        public static Photo GetPhotoById(int id, bool includeReferences = true) 
+        {
+            using PhotoContext db = new PhotoContext();
+            if(includeReferences)
+            {
+                return db.Photos
+                    .Where(p => p.PhotoId == id)
+                    .Include(p => p.Categories)
+                    .FirstOrDefault();
+            }
+            return db.Photos.FirstOrDefault(p => p.PhotoId == id);
         }
     }
 }
