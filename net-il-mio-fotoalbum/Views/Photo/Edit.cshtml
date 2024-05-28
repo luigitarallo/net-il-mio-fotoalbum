@@ -1,0 +1,33 @@
+﻿@model PhotoFormModel
+
+<form asp-controller="Photo" asp-action="Edit" asp-route-id="@Model.Photo.PhotoId" method="post">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <strong>Titolo:</strong>
+        <input asp-for="Photo.Title" class="d-block w-100" />
+        <span asp-validation-for="Photo.Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <strong>Contenuto:</strong>
+        <input asp-for="Photo.Description" class="d-block w-100" />
+        <span asp-validation-for="Photo.Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <strong>Is Visible:</strong>
+        <input type="checkbox" asp-for="Photo.IsVisible" />
+    </div>
+    <div class="mb-3">
+        <strong>Categories:</strong>
+        @for (int i = 0; i < Model.Categories.Count; i++)
+        {
+            <div>
+                <input type="checkbox" name="SelectedTags" value="@Model.Categories[i].Value"
+                @(Model.SelectedCategories.Contains(Model.Categories[i].Value) ? "checked" : "") />
+                @Model.Categories[i].Text
+            </div>
+        }
+    </div>
+    <div class="text-end">
+        <input type="submit" class="btn btn-small btn-success" value="Salva">
+    </div>
+</form>

@@ -30,9 +30,14 @@
                                 </td>
                                 <td class="text-center align-content-center">@photo.IsVisible</td>
                                 <td class="text-center align-content-center">
-                                <button type="button" class="btn btn-danger">
-                                    <a href="@Url.Action("Details", "Photo", new { id = photo.PhotoId })">Details</a>
-                                </button>
+                                    <button type="button" class="btn btn-danger">
+                                        <a href="@Url.Action("Details", "Photo", new { id = photo.PhotoId })">Details</a>
+                                    </button>
+                                </td>
+                                <td class="text-center align-content-center">
+                                    <button type="button" class="btn btn-warning">
+                                        <a href="@Url.Action("Edit", "Photo", new { id = photo.PhotoId })">Edit</a>
+                                    </button>
                                 </td>
                             </tr>
                         }
