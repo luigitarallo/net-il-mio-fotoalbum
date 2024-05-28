@@ -8,7 +8,7 @@
         <div class="col">
             <input class="photo_search form-control" placeholder="Search a photo" />
         </div>
-        <div class="row no_photos d-none vh-100">
+        <div class="row no_photos d-none">
             <div class="col">
                 <h1 class="text-center p-2">No Photos in the database</h1>
             </div>
@@ -19,14 +19,14 @@
     <form onsubmit="sendMessage(event)" method="post">
         <div class="mb-3">
             <strong>Email:</strong>
-            <input id="Email" type="text" class="d-block w-100" />
+            <input id="Email" type="Email" class="d-block w-100" />
         </div>
         <div class="mb-3">
             <strong>Message:</strong>
             <textarea id="Message" class="form-control d-block w-100"></textarea>
         </div>
         <div class="mb-3">
-            <input type="submit" class="btn btn-success" value="Crea" />
+            <input type="submit" class="btn btn-success" value="Send Me a Message" />
         </div>
     </form>
 </div>
@@ -63,6 +63,7 @@
                 document.querySelector('.no_photos').classList.add('d-none');
                 document.querySelector('.photos_list').classList.remove('d-none');
             }
+            
         }).catch((error) => {
             console.error('Errore durante la richiesta API:', error);
         });

@@ -6,7 +6,7 @@ namespace net_il_mio_fotoalbum.Models
     {
         [Key] public int CategoryId { get; set; }
         [Required(ErrorMessage ="Category name is mandatory")]
-        [StringLength(10, ErrorMessage = "Category name has to contain max 10 letters")]
+        [StringLength(20, ErrorMessage = "Category name has to contain max 20 letters")]
         [MinWords(1, ErrorMessage = "Description has to contain at least 1 word.")]
         public string Name { get; set; }
 
