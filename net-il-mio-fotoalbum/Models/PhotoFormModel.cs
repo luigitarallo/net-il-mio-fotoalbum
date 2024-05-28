@@ -8,7 +8,7 @@ namespace net_il_mio_fotoalbum.Models
     {
         public Photo Photo { get; set; }
         public List<SelectListItem>? Categories { get; set; } // To show categories to select
-        public List<string> SelectedCategories { get; set; }
+        public List<string>? SelectedCategories { get; set; }
         public IFormFile? ImageFormFile { get; set; }
         public PhotoFormModel() { }
 
