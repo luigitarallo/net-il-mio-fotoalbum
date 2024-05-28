@@ -14,7 +14,19 @@
                     <div class="card-body">
                         <h5 class="card-title fs-1 text-center text-danger">@Model.Title</h5>
                         <p class="card-text text-center">Description: @Model.Description</p>
-                        <p class="card-text text-center"><small class="text-muted">Price: € @Model.IsVisible</small></p>
+                        <p class="card-text text-center">
+                            <small class="text-muted">
+                                Visibility:
+                                @if (Model.IsVisible)
+                                {
+                                    <span>Visible</span>
+                                }
+                                else
+                                {
+                                    <span>Not Visible</span>
+                                }
+                            </small>
+                        </p>
 
                     </div>
                     <div style="display: flex; flex-wrap: wrap; gap: 5px;">
