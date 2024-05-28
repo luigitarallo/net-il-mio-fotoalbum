@@ -109,5 +109,16 @@ namespace net_il_mio_fotoalbum.Data
             db.SaveChanges();
             return true;
         }
+
+        public static bool DeletePhoto(int id)
+        {
+            using PhotoContext db = new PhotoContext();
+            Photo post = db.Photos.FirstOrDefault(p=> p.PhotoId == id);
+            if (post == null)
+                return false;
+            db.Photos.Remove(post);
+            db.SaveChanges();
+            return true;
+        }
     }
 }

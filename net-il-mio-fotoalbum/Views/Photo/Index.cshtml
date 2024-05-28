@@ -17,6 +17,8 @@
                         <th scope="col" class="text-center bg-danger">Photo</th>
                         <th scope="col" class="text-center bg-danger">Availability</th>
                         <th scope="col" class="text-center bg-danger">Details</th>
+                        <th scope="col" class="text-center bg-danger">Edit</th>
+                        <th scope="col" class="text-center bg-danger">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +41,14 @@
                                         <a href="@Url.Action("Edit", "Photo", new { id = photo.PhotoId })">Edit</a>
                                     </button>
                                 </td>
+                            <td class="text-center align-content-center">
+                                <form asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.PhotoId" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-success text-dark">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
                             </tr>
                         }
                 </tbody>

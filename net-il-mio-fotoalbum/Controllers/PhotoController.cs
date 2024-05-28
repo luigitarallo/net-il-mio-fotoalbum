@@ -83,5 +83,17 @@ namespace net_il_mio_fotoalbum.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            if (PhotoManager.DeletePhoto(id))
+                return RedirectToAction("Index");
+            else
+                return NotFound();
+             
+            
+        }
     }
 }
