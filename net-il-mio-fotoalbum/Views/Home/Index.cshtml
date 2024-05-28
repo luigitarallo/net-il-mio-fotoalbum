@@ -2,7 +2,41 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="wrapper h-100">
+    <div class="container ">
+        <h1 class="text-center text-light p-2">My Photos</h1>
+        <div class="row no_pizzas d-none vh-100">
+            <div class="col">
+                
+            </div>
+        </div>
+        <div class="row photos_list">
+        </div>
+    </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function loadPhotosList() {
+        axios.get('api/PhotoWeb/GetAllPhotos').then((res) => {
+            const photos = res.data;
+            const photoElement = document.querySelector('.photos_list');
+            photoElement.innerHTML = '';
+            photos.forEach((photo) => {
+                const photoCard = `
+                <div class="col-md-4 mb-4">
+                            <div class="card">
+                                    <img src="data:image/png;base64, ${photo.photoFile}" class="card-img-top" alt="${photo.title}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${photo.title}</h5>
+                                    <p class="card-text">${photo.description}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                photoElement.insertAdjacentHTML('beforeend', photoCard);
+            });
+        }).catch((error) => {
+            console.error('Errore durante la richiesta API:', error);
+        });
+    }
+    loadPhotosList();
+</script>
