@@ -120,5 +120,13 @@ namespace net_il_mio_fotoalbum.Data
             db.SaveChanges();
             return true;
         }
+
+        // api method
+
+        public static List<Photo> GetAllPublicPhotos()
+        {
+            using PhotoContext db = new PhotoContext();
+            return db.Photos.Where(p => p.IsVisible == true).ToList();
+        }
     }
 }
