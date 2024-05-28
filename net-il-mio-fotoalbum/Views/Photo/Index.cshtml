@@ -3,11 +3,13 @@
 @{
     using PhotoContext db = new PhotoContext();
 }
-
-
 <div class="wrapper">
     <div class="container">
         <h1 class="text-center text-light p-4">All Photos</h1>
+        <div class="d-flex justify-content-center align-items-center">
+            <h1>Lista photo</h1>
+            <input type="text" id="filter" placeholder="Filtra per titolo" />
+        </div>
         <div class="row">
             <table class="table table-dark table-bordered">
                 <thead>
@@ -15,7 +17,7 @@
                         <th scope="col" class="text-center bg-danger">Title</th>
                         <th scope="col" class="text-center bg-danger">Description</th>
                         <th scope="col" class="text-center bg-danger">Photo</th>
-                        <th scope="col" class="text-center bg-danger">Availability</th>
+                        <th scope="col" class="text-center bg-danger">Visibility</th>
                         <th scope="col" class="text-center bg-danger">Details</th>
                         <th scope="col" class="text-center bg-danger">Edit</th>
                         <th scope="col" class="text-center bg-danger">Delete</th>
@@ -24,13 +26,23 @@
                 <tbody>
                         @foreach (Photo photo in Model)
                         {
-                            <tr>
-                                <td class="text-center align-content-center">@photo.Title</td>
+                        <tr class="myPhoto">
+                            <td class="text-center align-content-center filter-text">@photo.Title</td>
                                 <td class="text-center align-content-center">@photo.Description</td>
                                 <td class="text-center align-content-center">
                                     <img class="img-fluid" src="@photo.PhotoSrc" alt="" />
                                 </td>
-                                <td class="text-center align-content-center">@photo.IsVisible</td>
+                                <td class="text-center align-content-center">
+                             
+                                @if (@photo.IsVisible)
+                                {
+                                    <span>Visible</span>
+                                }
+                                else
+                                {
+                                    <span>Not Visible</span>
+                                }
+                                </td>
                                 <td class="text-center align-content-center">
                                     <button type="button" class="btn btn-danger">
                                         <a href="@Url.Action("Details", "Photo", new { id = photo.PhotoId })">Details</a>
@@ -41,14 +53,14 @@
                                         <a href="@Url.Action("Edit", "Photo", new { id = photo.PhotoId })">Edit</a>
                                     </button>
                                 </td>
-                            <td class="text-center align-content-center">
-                                <form asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.PhotoId" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-success text-dark">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
+                                <td class="text-center align-content-center">
+                                    <form asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.PhotoId" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-success text-dark">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                 </tbody>
@@ -66,3 +78,18 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('filter').addEventListener('keyup', function () {
+        let filter = this.value.toLowerCase();
+        let photos = document.querySelectorAll('.myPhoto');
+
+        photos.forEach(function (photo) {
+            let title = photo.querySelector('.filter-text').innerText.toLowerCase();
+            if (title.includes(filter)) {
+                photo.classList.remove('d-none');
+            } else {
+                photo.classList.add('d-none');
+            }
+        });
+    });
+</script>
