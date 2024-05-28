@@ -121,7 +121,7 @@ namespace net_il_mio_fotoalbum.Data
             return true;
         }
 
-        // api method
+        // api methods
 
         public static List<Photo> GetAllPublicPhotos(string? name = null)
         {
@@ -135,7 +135,13 @@ namespace net_il_mio_fotoalbum.Data
             {
                 return db.Photos.Where(p => p.IsVisible == true).ToList();
             }
-            
+        }
+
+        public static void InsertMessage(Message message)
+        {
+            using PhotoContext db = new PhotoContext();
+            db.Messages.Add(message);
+            db.SaveChanges();
         }
     }
 }
