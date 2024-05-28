@@ -9,9 +9,13 @@ namespace net_il_mio_fotoalbum.Controllers.Api
     public class PhotoWebController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAllPhotos()
+        public IActionResult GetAllPhotos(string? name)
         {
-            return Ok(PhotoManager.GetAllPublicPhotos());
+            if (name == null)
+            {
+                return Ok(PhotoManager.GetAllPublicPhotos());
+            }
+            return Ok(PhotoManager.GetAllPublicPhotos(name));
         }
     }
 }

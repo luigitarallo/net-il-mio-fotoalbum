@@ -3,40 +3,74 @@
 }
 
 <div class="wrapper h-100">
-    <div class="container ">
+    <div class="container">
         <h1 class="text-center text-light p-2">My Photos</h1>
-        <div class="row no_pizzas d-none vh-100">
+        <div class="col">
+            <input class="photo_search form-control" placeholder="Search a photo" />
+        </div>
+        <div class="row no_photos d-none vh-100">
             <div class="col">
-                
+                <h1 class="text-center p-2">No Photos in the database</h1>
             </div>
         </div>
-        <div class="row photos_list">
+        <div class="row photos_list d-none">
         </div>
     </div>
+    <form onsubmit="sendMessage(event)" method="post">
+        <div class="mb-3">
+            <strong>Email:</strong>
+            <input id="Email" type="text" class="d-block w-100" />
+        </div>
+        <div class="mb-3">
+            <strong>Message:</strong>
+            <textarea id="Message" class="form-control d-block w-100"></textarea>
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-success" value="Crea" />
+        </div>
+    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    function loadPhotosList() {
-        axios.get('api/PhotoWeb/GetAllPhotos').then((res) => {
-            const photos = res.data;
-            const photoElement = document.querySelector('.photos_list');
-            photoElement.innerHTML = '';
-            photos.forEach((photo) => {
-                const photoCard = `
-                <div class="col-md-4 mb-4">
+
+    function loadPhotosList(nameFilter) {
+        axios.get('api/PhotoWeb/GetAllPhotos', {
+            params: {
+                name: nameFilter
+            }
+        }).then((res) => {
+            console.log(res);
+            if (res.data.length == 0) {
+                document.querySelector('.no_photos').classList.remove('d-none');
+                document.querySelector('.photos_list').classList.add('d-none');
+            } else {
+                const photos = res.data;
+                const photoElement = document.querySelector('.photos_list');
+                photoElement.innerHTML = '';
+                photos.forEach((photo) => {
+                    const photoCard = `
+                        <div class="col-md-4 mb-4">
                             <div class="card">
-                                    <img src="data:image/png;base64, ${photo.photoFile}" class="card-img-top" alt="${photo.title}">
+                                <img src="data:image/png;base64, ${photo.photoFile}" class="card-img-top" alt="${photo.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${photo.title}</h5>
                                     <p class="card-text">${photo.description}</p>
                                 </div>
                             </div>
                         </div>`;
-                photoElement.insertAdjacentHTML('beforeend', photoCard);
-            });
+                    photoElement.insertAdjacentHTML('beforeend', photoCard);
+                });
+                document.querySelector('.no_photos').classList.add('d-none');
+                document.querySelector('.photos_list').classList.remove('d-none');
+            }
         }).catch((error) => {
             console.error('Errore durante la richiesta API:', error);
         });
     }
-    loadPhotosList();
+    function searchPhoto() {
+        console.log(this.value);
+        loadPhotosList(this.value);
+    }
+    document.querySelector('.photo_search').addEventListener('keyup', searchPhoto)
+    loadPhotosList('');
 </script>

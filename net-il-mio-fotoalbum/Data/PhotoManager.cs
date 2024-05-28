@@ -123,10 +123,19 @@ namespace net_il_mio_fotoalbum.Data
 
         // api method
 
-        public static List<Photo> GetAllPublicPhotos()
+        public static List<Photo> GetAllPublicPhotos(string? name = null)
         {
             using PhotoContext db = new PhotoContext();
-            return db.Photos.Where(p => p.IsVisible == true).ToList();
+            if (name != null)
+            {
+                string searchName = name.ToLower();
+                return db.Photos.Where(p => p.Title.ToLower().Contains(searchName) && p.IsVisible).ToList();
+            }
+            else
+            {
+                return db.Photos.Where(p => p.IsVisible == true).ToList();
+            }
+            
         }
     }
 }
