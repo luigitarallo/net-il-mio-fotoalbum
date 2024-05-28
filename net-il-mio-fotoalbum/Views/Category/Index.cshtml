@@ -15,6 +15,14 @@
                     {
                         <tr>
                             <td class="text-center align-content-center">@category.Name</td>
+                            <td class="text-center align-content-center">
+                                <form asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-success text-dark">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
