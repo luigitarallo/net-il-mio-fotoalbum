@@ -80,4 +80,25 @@
     }
     document.querySelector('.photo_search').addEventListener('keyup', searchPhoto)
     loadPhotosList('');
+
+    function sendMessage(event) {
+        event.preventDefault();
+        let emailInput = document.getElementById('Email');
+        let contentInput = document.getElementById('Message');
+        let email = emailInput.value;
+        let content = contentInput.value;
+
+        axios.post('/api/PhotoWeb/MessagePost', {
+            email: email,
+            content: content
+        }).then(function (response) {
+            console.log(response);
+            emailInput.value = '';
+            contentInput.value = '';
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
 </script>
