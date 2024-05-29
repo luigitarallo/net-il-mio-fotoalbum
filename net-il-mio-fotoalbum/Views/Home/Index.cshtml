@@ -51,10 +51,16 @@
                     const photoCard = `
                         <div class="col-md-4 mb-4">
                             <div class="card">
-                                <img src="data:image/png;base64, ${photo.photoFile}" class="card-img-top" alt="${photo.title}">
+                                    <img src="${photo.photoSrc}" class="card-img-top" alt="${photo.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${photo.title}</h5>
                                     <p class="card-text">${photo.description}</p>
+                                    <p class="card-text"><strong>Categories:</strong></p>
+                                    <ul class="list-unstyled">
+                                       ${photo.categories.map(category => {
+                                           return `<li>${category.name}</li>`;
+                                       }).join('')}
+                                    </ul>
                                 </div>
                             </div>
                         </div>`;

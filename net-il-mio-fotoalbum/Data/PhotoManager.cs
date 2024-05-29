@@ -129,11 +129,11 @@ namespace net_il_mio_fotoalbum.Data
             if (name != null)
             {
                 string searchName = name.ToLower();
-                return db.Photos.Where(p => p.Title.ToLower().Contains(searchName) && p.IsVisible).ToList();
+                return db.Photos.Where(p => p.Title.ToLower().Contains(searchName) && p.IsVisible).Include(p=>p.Categories).ToList();
             }
             else
             {
-                return db.Photos.Where(p => p.IsVisible == true).ToList();
+                return db.Photos.Where(p => p.IsVisible == true).Include(p => p.Categories).ToList();
             }
         }
 
