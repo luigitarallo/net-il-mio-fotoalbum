@@ -10,5 +10,6 @@ namespace net_il_mio_fotoalbum.Models
         public DateTime SentAt { get; set; }
         
         public Message() { }
+
     }
 }

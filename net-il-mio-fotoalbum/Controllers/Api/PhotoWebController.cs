@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using net_il_mio_fotoalbum.Data;
+using net_il_mio_fotoalbum.Models;
 
 namespace net_il_mio_fotoalbum.Controllers.Api
 {
@@ -16,6 +17,13 @@ namespace net_il_mio_fotoalbum.Controllers.Api
                 return Ok(PhotoManager.GetAllPublicPhotos());
             }
             return Ok(PhotoManager.GetAllPublicPhotos(name));
+        }
+
+        [HttpPost]
+        public IActionResult MessagePost([FromBody] Message message)
+        {
+            PhotoManager.InsertMessage(message);
+            return Ok();
         }
     }
 }

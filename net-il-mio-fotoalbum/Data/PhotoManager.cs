@@ -140,6 +140,7 @@ namespace net_il_mio_fotoalbum.Data
         public static void InsertMessage(Message message)
         {
             using PhotoContext db = new PhotoContext();
+            message.SentAt = DateTime.Now;
             db.Messages.Add(message);
             db.SaveChanges();
         }

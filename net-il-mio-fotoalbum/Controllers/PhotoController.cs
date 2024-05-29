@@ -48,7 +48,6 @@ namespace net_il_mio_fotoalbum.Controllers
         }
 
         // Edit
-
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -85,7 +84,7 @@ namespace net_il_mio_fotoalbum.Controllers
                 return NotFound();
             }
         }
-
+        // Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -94,8 +93,6 @@ namespace net_il_mio_fotoalbum.Controllers
                 return RedirectToAction("Index");
             else
                 return NotFound();
-             
-            
         }
     }
 }
