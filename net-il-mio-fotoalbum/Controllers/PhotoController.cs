@@ -53,15 +53,14 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             Photo photoToEdit = PhotoManager.GetPhotoById(id);
             if(photoToEdit == null)
-            {
                 return NotFound();
-            }
-            else
-            {
-                PhotoFormModel model = new PhotoFormModel(photoToEdit);
-                model.CreateCategories();
-                return View(model);
-            }
+
+           // List<string> selectedCategoriesIds = photoToEdit.Categories.Select(c => c.CategoryId.ToString()).ToList();
+            PhotoFormModel model = new PhotoFormModel(photoToEdit);
+            // model.SelectedCategories = selectedCategoriesIds;
+            model.CreateCategories();
+            return View(model);
+            
         }
 
         [HttpPost]
@@ -70,13 +69,15 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             if (!ModelState.IsValid)
             {
-                data.CreateCategories();
                 data.Photo.PhotoId = id;
+                data.CreateCategories();
                 return View("Edit", data);
             }
+            var modifiedPhoto = PhotoManager.EditPhoto(id, data.Photo, data.SelectedCategories);
 
-            if (PhotoManager.EditPhoto(id, data.Photo.Title, data.Photo.Description, data.Photo.IsVisible, data.SelectedCategories))
+            if (modifiedPhoto)
             {
+               
                 return RedirectToAction("Index");
             }
             else

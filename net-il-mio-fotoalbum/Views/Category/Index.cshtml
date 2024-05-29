@@ -7,7 +7,8 @@
             <table class="table table-dark table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center bg-danger">Name</th>
+                        <th scope="col" class="text-center bg-danger">Category name</th>
+                        <th scope="col" class="text-center bg-danger">Delete category</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +29,10 @@
                 </tbody>
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-danger mb-5">
-                        <a href="@Url.Action("Create","Category")">Add New Category</a>
+                        <a href="@Url.Action("Create","Category")">Create a new category</a>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger mb-5">
+                        <a href="@Url.Action("Index","Photo")">Back to photos</a>
                     </button>
                 </div>
             </table>

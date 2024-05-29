@@ -19,7 +19,7 @@ namespace net_il_mio_fotoalbum.Models
         public List<Category>? Categories { get; set; }
         public Photo() { }
 
-        public Photo(string title, string description, bool isVisible = false) : this()
+        public Photo(string title, string description, bool isVisible = false)
         {
             Title = title;
             Description = description;

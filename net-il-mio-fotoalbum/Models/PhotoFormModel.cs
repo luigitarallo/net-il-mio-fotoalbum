@@ -15,15 +15,14 @@ namespace net_il_mio_fotoalbum.Models
         public PhotoFormModel(Photo photo) 
         {
             this.Photo = photo;
+            this.SelectedCategories = this.Photo.Categories.Select(c => c.CategoryId.ToString()).ToList();
         }
 
         public void CreateCategories()
         {
             this.Categories = new List<SelectListItem>();
             if (this.SelectedCategories == null) 
-            {
                 this.SelectedCategories = new List<string>();
-            }
             var categoriesFromDb = PhotoManager.GetAllCategories();
             foreach (var category in categoriesFromDb)
             {

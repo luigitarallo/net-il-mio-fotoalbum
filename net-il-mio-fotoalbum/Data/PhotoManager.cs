@@ -15,17 +15,21 @@ namespace net_il_mio_fotoalbum.Data
             using PhotoContext db = new PhotoContext();
             return db.Categories.ToList();
         }
-        public static void InsertPhoto(Photo photo, List<string> SelectedCategories = null)
+        public static void InsertPhoto(Photo photo, List<string> selectedCategories)
         {
             using PhotoContext db = new PhotoContext();
-            if(SelectedCategories != null)
+            photo.Categories = new List<Category>();
+            if(selectedCategories != null)
             {
-                photo.Categories = new List<Category>();
-                foreach(string categoryId in SelectedCategories)
+                foreach(string category in selectedCategories)
                 {
-                    int id = int.Parse(categoryId);
-                    var category = db.Categories.FirstOrDefault(c=>c.CategoryId == id);
-                    photo.Categories.Add(category);
+                    int id = int.Parse(category);
+                    
+                    var categoryFromDb = db.Categories.FirstOrDefault(c=>c.CategoryId == id);
+                    if(categoryFromDb != null)
+                    {
+                        photo.Categories.Add(categoryFromDb);
+                    }
                 }
             }
             db.Photos.Add(photo);
@@ -63,47 +67,48 @@ namespace net_il_mio_fotoalbum.Data
             return true;
         }
 
-        public static bool EditPhoto(int id, Action<Photo, List<Category>> edit, List<string> categories)
+        //public static bool EditPhoto(int id, Photo photo, List<string> selectedCategories)
+        //{
+        //    using PhotoContext db = new PhotoContext();
+        //    Photo photoToEdit = db.Photos.Where(p => p.PhotoId == id).Include(p => p.Categories).FirstOrDefault();
+        //    if (photoToEdit == null)
+        //        return false;
+        //    photoToEdit.Title = photo.Title;
+        //    photoToEdit.Description = photo.Description;
+        //    photoToEdit.IsVisible = photo.IsVisible;
+        //    photoToEdit.Categories.Clear();
+        //    if(selectedCategories != null)
+        //    {
+        //        foreach (var category in selectedCategories)
+        //        {
+        //            int categoryId = int.Parse(category);
+        //            var categoryFromDb = db.Categories.FirstOrDefault(c=>c.CategoryId == categoryId);
+        //            if(categoryFromDb == null)
+        //                photoToEdit.Categories.Add(categoryFromDb);
+        //        }
+        //    }
+        //    db.SaveChanges();
+        //    return true;
+        //}
+
+        public static bool EditPhoto(int id, Photo photo, List<string> selectedCategories)
         {
             using PhotoContext db = new PhotoContext();
-            Photo photo = db.Photos
-                .Include(p => p.Categories)
-                .FirstOrDefault(p => p.PhotoId == id);
-
-            if (photo == null)
+            Photo photoToEdit = db.Photos.Where(p => p.PhotoId == id).Include(p => p.Categories).FirstOrDefault();
+            if (photoToEdit == null)
                 return false;
-            List<Category> categoriesFromDb = new List<Category>();
-            if(categories != null)
+            photoToEdit.Title = photo.Title;
+            photoToEdit.Description = photo.Description;
+            photoToEdit.IsVisible = photo.IsVisible;
+            photoToEdit.Categories.Clear();
+            if (selectedCategories != null)
             {
-                foreach (var category in categories)
+                foreach (var category in selectedCategories)
                 {
                     int categoryId = int.Parse(category);
-                    var categoryFromDb = db.Categories.FirstOrDefault(c=>c.CategoryId == categoryId);
-                    categoriesFromDb.Add(categoryFromDb);
-                }
-            }
-            edit(photo, categoriesFromDb);
-            db.SaveChanges();
-            return true;
-        }
-
-        public static bool EditPhoto(int id, string title, string description, bool isVisible, List<string> categories)
-        {
-            using PhotoContext db = new PhotoContext();
-            var photo = db.Photos.Where(p=> p.PhotoId== id).Include(p=> p.Categories).FirstOrDefault();
-            if (photo == null) 
-                return false;
-            photo.Title = title;
-            photo.Description = description;
-            photo.IsVisible = isVisible;
-            photo.Categories.Clear();
-            if(categories != null)
-            {
-                foreach (var category in categories)
-                {
-                    int categoryId = int.Parse(category);
-                    var categoryFromDb = db.Categories.FirstOrDefault(c=> c.CategoryId == categoryId);
-                    photo.Categories.Add(categoryFromDb);
+                    var categoryFromDb = db.Categories.FirstOrDefault(c => c.CategoryId == categoryId);
+                    if (categoryFromDb != null)
+                        photoToEdit.Categories.Add(categoryFromDb);
                 }
             }
             db.SaveChanges();

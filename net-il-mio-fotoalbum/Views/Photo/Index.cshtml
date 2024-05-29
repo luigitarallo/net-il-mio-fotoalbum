@@ -5,7 +5,7 @@
 }
 <div class="wrapper">
     <div class="container">
-        <h1 class="text-center text-light p-4">All Photos</h1>
+        <h1 class="text-center p-4">My Photos</h1>
         <div class="d-flex justify-content-center align-items-center">
             <h1>Lista photo</h1>
             <input type="text" id="filter" placeholder="Filtra per titolo" />
@@ -14,9 +14,9 @@
             <table class="table table-dark table-bordered">
                 <thead>
                     <tr>
+                        <th scope="col" class="text-center bg-danger">Photo</th>
                         <th scope="col" class="text-center bg-danger">Title</th>
                         <th scope="col" class="text-center bg-danger">Description</th>
-                        <th scope="col" class="text-center bg-danger">Photo</th>
                         <th scope="col" class="text-center bg-danger">Visibility</th>
                         <th scope="col" class="text-center bg-danger">Details</th>
                         <th scope="col" class="text-center bg-danger">Edit</th>
@@ -27,11 +27,12 @@
                         @foreach (Photo photo in Model)
                         {
                         <tr class="myPhoto">
+                            <td class="text-center align-content-center">
+                                <img class="img-fluid" src="@photo.PhotoSrc" alt="" />
+                            </td>
                             <td class="text-center align-content-center filter-text">@photo.Title</td>
                                 <td class="text-center align-content-center">@photo.Description</td>
-                                <td class="text-center align-content-center">
-                                    <img class="img-fluid" src="@photo.PhotoSrc" alt="" />
-                                </td>
+                                
                                 <td class="text-center align-content-center">
                              
                                 @if (@photo.IsVisible)

@@ -10,7 +10,7 @@ namespace net_il_mio_fotoalbum.Models
         [MinWords(1, ErrorMessage = "Description has to contain at least 1 word.")]
         public string Name { get; set; }
 
-        public List<Photo>? Photos { get; set; }
+        public List<Photo> Photos { get; set; }
 
         public Category() { }
     }
