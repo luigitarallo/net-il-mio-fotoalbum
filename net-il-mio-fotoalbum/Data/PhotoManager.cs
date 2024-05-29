@@ -67,30 +67,6 @@ namespace net_il_mio_fotoalbum.Data
             return true;
         }
 
-        //public static bool EditPhoto(int id, Photo photo, List<string> selectedCategories)
-        //{
-        //    using PhotoContext db = new PhotoContext();
-        //    Photo photoToEdit = db.Photos.Where(p => p.PhotoId == id).Include(p => p.Categories).FirstOrDefault();
-        //    if (photoToEdit == null)
-        //        return false;
-        //    photoToEdit.Title = photo.Title;
-        //    photoToEdit.Description = photo.Description;
-        //    photoToEdit.IsVisible = photo.IsVisible;
-        //    photoToEdit.Categories.Clear();
-        //    if(selectedCategories != null)
-        //    {
-        //        foreach (var category in selectedCategories)
-        //        {
-        //            int categoryId = int.Parse(category);
-        //            var categoryFromDb = db.Categories.FirstOrDefault(c=>c.CategoryId == categoryId);
-        //            if(categoryFromDb == null)
-        //                photoToEdit.Categories.Add(categoryFromDb);
-        //        }
-        //    }
-        //    db.SaveChanges();
-        //    return true;
-        //}
-
         public static bool EditPhoto(int id, Photo photo, List<string> selectedCategories)
         {
             using PhotoContext db = new PhotoContext();
