@@ -1,38 +1,80 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = null;
 }
-
-<div class="wrapper h-100">
-    <div class="container">
-        <h1 class="text-center text-light p-2">My Photos</h1>
-        <div class="col">
-            <input class="photo_search form-control" placeholder="Search a photo" />
-        </div>
-        <div class="row no_photos d-none">
-            <div class="col">
-                <h1 class="text-center p-2">No Photos in the database</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/net_il_mio_fotoalbum.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Welcome to my PhotoAlbum</span>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="wrapper">
+            <div class="container my-5">
+                <div class="my-5">
+                    <input class="photo_search form-control" placeholder="Search a photo" />
+                </div>
+                <div class="row no_photos d-none">
+                    <div class="col">
+                        <h1 class="text-center p-2">No Photos in the database</h1>
+                    </div>
+                </div>
+                <div class="row photos_list d-none">
+                </div>
+            </div>
+            <div class="bg-light p-5 d-flex justify-content-center">
+                <div class="fs-1 text-end me-5 d-flex flex-column justify-content-end">
+                    <p>DO NOT HESITATE </br>TO CONTACT ME</p>
+                </div>
+                <form onsubmit="sendMessage(event)" method="post">
+                    <div class="mb-3">
+                        <strong>Email:</strong>
+                        <input id="Email" type="Email" class="form-control d-block w-100" />
+                    </div>
+                    <div class="mb-3">
+                        <strong>Message:</strong>
+                        <textarea id="Message" class="form-control d-block w-100"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-primary" value="Send Me a Message" />
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="row photos_list d-none">
-        </div>
-    </div>
-    <form onsubmit="sendMessage(event)" method="post">
-        <div class="mb-3">
-            <strong>Email:</strong>
-            <input id="Email" type="Email" class="d-block w-100" />
-        </div>
-        <div class="mb-3">
-            <strong>Message:</strong>
-            <textarea id="Message" class="form-control d-block w-100"></textarea>
-        </div>
-        <div class="mb-3">
-            <input type="submit" class="btn btn-success" value="Send Me a Message" />
-        </div>
-    </form>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
+    </main>
+    <footer class="border-top text-muted d-flex justify-content-center align-items-center">
+        <p class="text-muted">Made with &#10084; By Luigi Tarallo</p>       
+    </footer>
+</body>
+</html>
+<style>
+    .card {
+        height: 100%;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    }
+    .card-img-top {
+        object-fit: cover;
+        max-width: 100%;
+    }
+    footer{
+        height: 4rem;
+        background-color: #e2e2e2;
+    }
+</style>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
     function loadPhotosList(nameFilter) {
         axios.get('api/PhotoWeb/GetAllPhotos', {
             params: {
@@ -49,16 +91,16 @@
                 photoElement.innerHTML = '';
                 photos.forEach((photo) => {
                     const photoCard = `
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
+                        <div class="col-3 mb-3">
+                                    <div class="card" style="width: 18rem;">
                                     <img src="${photo.photoSrc}" class="card-img-top" alt="${photo.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${photo.title}</h5>
                                     <p class="card-text">${photo.description}</p>
                                     <p class="card-text"><strong>Categories:</strong></p>
-                                    <ul class="list-unstyled">
+                                    <ul class="list-unstyled d-flex">
                                        ${photo.categories.map(category => {
-                                           return `<li>${category.name}</li>`;
+                        return `<li class="badge text-bg-primary me-2">${category.name}</li>`;
                                        }).join('')}
                                     </ul>
                                 </div>
@@ -100,5 +142,4 @@
                 console.log(error);
             });
     }
-
 </script>
