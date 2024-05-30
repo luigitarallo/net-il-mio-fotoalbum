@@ -3,7 +3,7 @@
 <div class="show-pizza-wrapper h-auto">
     <div class="container pizza-card-container">
         <div class="d-flex justify-content-end my-2">
-            <a href="@Url.Action("Index", "Photo")" class="btn btn-danger"> Back to all Photos</a>
+            <a href="@Url.Action("Index", "Photo")" class="btn btn-primary"> Back to all Photos</a>
         </div>
         <div class="row">
             <div class="col">
@@ -11,11 +11,22 @@
                     <div class="card-image">
                         <img src="@Url.Content(Model.PhotoSrc)" class="card-img-top" alt="@Model.Title">
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title fs-1 text-center text-danger">@Model.Title</h5>
-                        <p class="card-text text-center">Description: @Model.Description</p>
-                        <p class="card-text text-center">
-                            <small class="text-muted">
+                    <h5 class="card-title fs-1 text-center text-primary">@Model.Title</h5>
+                    <div class="card-body d-flex justify-content-between">
+                        <div>
+                            <p class="card-text fs-4">Description: @Model.Description</p>
+                            <p class="card-text">
+                                <span>
+                                    Categories:
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <span class="text-primary">@category.Name</span>
+                                    }
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <small>
                                 Visibility:
                                 @if (Model.IsVisible)
                                 {
@@ -26,20 +37,11 @@
                                     <span>Not Visible</span>
                                 }
                             </small>
-                        </p>
-
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-                        @foreach (var category in Model.Categories)
-                        {
-                            <div style="background-color: #AAAAAA; display: flex; justify-content: center; align-items: center;
-                            border-radius: 3px; border-style: solid; border-color: #AAAAAA; padding: 2px;">
-                                @category.Name
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 

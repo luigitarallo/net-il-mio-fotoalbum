@@ -2,39 +2,39 @@
 
 <div class="wrapper">
     <div class="container">
-        <h1 class="text-center p-4">All Categories</h1>
-        <div class="row">
-            <table class="table table-dark table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center bg-danger">Category name</th>
-                        <th scope="col" class="text-center bg-danger">Delete category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Category category in Model)
-                    {
-                        <tr>
-                            <td class="text-center align-content-center">@category.Name</td>
-                            <td class="text-center align-content-center">
-                                <form asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-success text-dark">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger m-3">
-                        <a href="@Url.Action("Create","Category")">Create a new category</a>
-                    </button>
-                    <button type="button" class="btn btn-outline-danger m-3">
-                        <a href="@Url.Action("Index","Photo")">Back to photos</a>
-                    </button>
-                </div>
-            </table>
+        <h1 class="text-center">All Categories</h1>
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-primary me-3">
+                <a href="@Url.Action("Create","Category")">Create a new category</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary">
+                <a href="@Url.Action("Index","Photo")">Back to photos</a>
+            </button>
         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center bg-success text-light">Category name</th>
+                    <th scope="col" class="text-center bg-success text-light">Delete category</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Category category in Model)
+                {
+                    <tr>
+                        <td class="text-center align-content-center">@category.Name</td>
+                        <td class="text-center align-content-center">
+                            <form asp-controller="Category" asp-action="Delete" asp-route-id="@category.CategoryId" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger text-light">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 

@@ -2,13 +2,18 @@
 
 <form asp-controller="Photo" asp-action="Edit" asp-route-id="@Model.Photo.PhotoId" method="post">
     @Html.AntiForgeryToken()
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-primary">
+            <a href="@Url.Action("Index","Photo")">Back to photos</a>
+        </button>
+    </div>
     <div class="mb-3">
-        <strong>Titolo:</strong>
+        <strong>Title:</strong>
         <input asp-for="Photo.Title" class="d-block w-100" />
         <span asp-validation-for="Photo.Title" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <strong>Contenuto:</strong>
+        <strong>Description:</strong>
         <input asp-for="Photo.Description" class="d-block w-100" />
         <span asp-validation-for="Photo.Description" class="text-danger"></span>
     </div>
@@ -28,6 +33,6 @@
         }
     </div>
     <div class="text-end">
-        <input type="submit" class="btn btn-small btn-success" value="Salva">
+        <input type="submit" class="btn btn-small btn-success" value="Save">
     </div>
 </form>

@@ -2,9 +2,15 @@
 
 @using net_il_mio_fotoalbum.Data
 
-<div class="container">
+<div class="container vh-100">
     <form asp-controller="Category" asp-action="Create" method="post">
         @Html.AntiForgeryToken()
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-primary">
+                <a href="@Url.Action("Index","Category")">Back to categories</a>
+            </button>
+        </div>
+        
         <div class="mb-3">
             <strong>Name:</strong>
             <input asp-for="Name" class="d-block w-100" />
@@ -13,6 +19,7 @@
         <div class="text-end">
             <input type="submit" class="btn btn-small btn-info" value="Insert Category">
         </div>
+        
     </form>
 </div>
 
